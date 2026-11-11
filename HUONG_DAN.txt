@@ -1,0 +1,9 @@
+MINI GAME: HỘI NHẬP – KINH TẾ – QUỐC TẾ
+
+1. Mở index.html bằng Chrome hoặc Edge. Không cần Internet.
+2. Bấm Bắt đầu trò chơi để đổi ngay số chia hết ở cột 1 và cột 2 (từ 2 đến 6), đồng thời đổi cả ba từ khóa nói thay bằng.
+3. Số chia hết ở cột 3 tự động bằng tích hai số đầu, không sửa trực tiếp. Các số và từ khóa không trùng nhau trong một lượt.
+4. Có thể sửa trực tiếp các ô. Bấm Bắt đầu lần nữa để tạo bộ luật mới, không chuyển màn hình hay đếm ngược.
+5. Khi số thỏa nhiều quy tắc, ưu tiên quy tắc 3, rồi 1, rồi 2. Số còn lại đọc bình thường.
+
+Các thiết lập luật được lưu trong trình duyệt khi có hỗ trợ.

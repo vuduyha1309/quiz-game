@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f3f3f3">
+<title>Hội nhập • Kinh tế • Quốc tế — Mini Game</title>
+<style>
+:root{color-scheme:light;--bg:#f3f3f3;--panel:#ffffff;--edge:#d6d6d6;--ink:#292929;--muted:#666666;--accent:#4b4b4b}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);font:400 18px/1.5 Calibri,Carlito,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+button,input{font:inherit}button{cursor:pointer;transition:background .15s,border-color .15s}button:disabled{opacity:.45;cursor:default}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.page{width:min(1240px,calc(100% - 64px));margin:auto;padding:28px 0}header{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-bottom:24px;border-bottom:1px solid var(--edge)}.brand{display:flex;gap:13px;align-items:center;min-width:0}.logo{width:44px;height:44px;flex-shrink:0;border-radius:4px;background:#4b4b4b;color:#ffffff;display:grid;place-items:center}.logo svg{width:26px;height:26px}.brand h1{font-size:18px;line-height:1.25;margin:0;letter-spacing:.02em}.brand p{margin:4px 0 0;color:var(--muted);font-size:14px}.header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+svg{display:inline-block;width:20px;height:20px;vertical-align:middle;flex-shrink:0;stroke:currentColor}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--edge);border-radius:4px;background:#e9e9e9;color:var(--ink);font-weight:700;padding:11px 16px;white-space:nowrap}.btn:hover:not(:disabled){background:#dddddd;border-color:#a0a0a0}.btn.ghost{background:transparent}.btn.ghost:hover{background:#e9e9e9}.btn.primary{border-color:#4b4b4b;color:#ffffff;background:#4b4b4b}.btn.primary:hover:not(:disabled){background:#333333;border-color:#333333}.btn.lg{padding:15px 24px;font-size:18px}.btn.icon-btn{width:44px;height:44px;padding:0}
+#setupScreen{display:grid;grid-template-columns:minmax(230px,.65fr) minmax(0,1.6fr);gap:24px 48px;padding:56px 0 40px;align-items:start}.hero{padding-top:8px}.tag{display:block;color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.08em}.hero h2{font-size:clamp(36px,3.5vw,50px);font-weight:700;line-height:1.12;margin:20px 0 18px;letter-spacing:-.025em}.hero h2 em{font-style:normal;color:var(--accent)}.hero .desc{font-size:18px;color:var(--muted);margin:0;max-width:340px}
+.setup-grid{min-width:0}.panel{border:1px solid var(--edge);border-radius:4px;background:var(--panel);padding:28px 0 0}.rule-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}.rule-card{display:flex;flex-direction:column;gap:12px;text-align:center;padding:4px 20px 28px;min-width:0}.rule-card+.rule-card{border-left:1px solid var(--edge)}.rule-card label{font-size:15px;font-weight:700;color:#606060}.rule-number{display:flex;justify-content:center;min-height:80px;margin-bottom:8px}.rule-card input{display:block;width:100%;min-width:0;background:#e9e9e9;border:1px solid #bfbfbf;color:var(--ink);border-radius:3px;padding:11px 5px;font-weight:700;text-align:center}.rule-card input:focus{border-color:var(--accent)}.rule-card input[type=number]{width:100%;max-width:112px;font-size:48px;padding:0 5px;background:transparent;border-color:transparent;font-variant-numeric:tabular-nums}.rule-card input[type=number]:hover,.rule-card input[type=number]:focus{border-color:#bfbfbf}.rule-card input[type=text]{font-size:19px;color:#292929}
+.score-notice{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;padding:17px 16px;background:#e9e9e9;border-top:1px solid var(--edge);font-size:15px;color:#606060}.score-item{display:inline-flex;align-items:center;gap:6px}.score-item svg{width:18px;height:18px;color:var(--accent)}.score-notice b{color:var(--ink)}
+.ready{grid-column:2;display:flex;flex-direction:column;align-items:flex-start;gap:20px}.ready p{margin:0;color:var(--muted);font-size:15px;max-width:650px}.ready p svg{color:var(--accent);margin-right:5px}.rule-warning{display:none;padding:12px 18px;background:#eeeeee;border-top:1px solid #999999;color:#404040;font-size:15px}.rule-warning.show{display:block}footer{padding-top:24px;border-top:1px solid var(--edge);color:#757575;font-size:13px;line-height:1.7}footer strong{color:#484848}
+@media(max-width:1000px){#setupScreen{grid-template-columns:minmax(190px,.65fr) minmax(0,1.6fr);gap:24px}.rule-card{padding:4px 12px 24px}.score-notice{gap:10px 16px}.brand h1{font-size:16px}}
+@media(max-width:760px){.page{width:calc(100% - 32px);padding:20px 0}header{flex-wrap:wrap;gap:18px;padding-bottom:20px}.header-actions{margin-left:auto}.brand p{font-size:13px}.btn{font-size:15px}#setupScreen{grid-template-columns:1fr;padding:30px 0;gap:26px}.hero{padding:0}.hero h2{font-size:38px;margin:12px 0}.hero .desc{max-width:none;font-size:17px}.ready{grid-column:1}.ready .btn{width:100%}.rule-card{padding:0 8px 22px;gap:10px}.rule-card label{font-size:13px}.rule-card input[type=number]{font-size:40px}.rule-card input[type=text]{font-size:16px;padding:10px 3px}.panel{padding-top:22px}.score-notice{font-size:14px;padding:14px 10px;gap:8px 14px}.score-item{gap:4px}.score-item svg{width:16px;height:16px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
+/* Keep text and icons on the same line in one color. */
+.hero h2 em,.score-notice b,.score-item svg,.ready p svg,footer strong{color:inherit}
+</style>
+</head>
+<body>
+<div class="page">
+<header>
+  <div class="brand"><div class="logo" aria-hidden="true"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+  <path d="M2 12h20" />
+</svg></div><div><h1 id="brandTitle">HỘI NHẬP • KINH TẾ • QUỐC TẾ</h1><p>Mini game phản xạ · Kinh tế chính trị Mác – Lênin</p></div></div>
+  <div class="header-actions"><button class="btn ghost icon-btn" id="soundButton" title="Bật/tắt âm thanh" aria-label="Bật/tắt âm thanh"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z" />
+  <path d="m16.5 14.5 5-5" />
+  <path d="m16.5 9.5 5 5" />
+</svg></button><button class="btn ghost" id="fullButton"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+  <path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+  <path d="M3 16v3a2 2 0 0 0 2 2h3" />
+  <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+</svg> Toàn màn hình</button></div>
+</header>
+<main>
+<section class="screen active" id="setupScreen">
+  <div class="hero"><span class="tag">MINI GAME CẢ LỚP · 3–5 PHÚT</span><h2>Đếm số <em>không hề dễ!</em></h2><p class="desc">Nhanh mắt, nhanh miệng, giữ bình tĩnh. Đếm đúng số chưa chắc đã đúng luật!</p></div>
+  <div class="setup-grid">
+    <div class="panel">
+      <div class="rule-cards">
+        <div class="rule-card">
+          <label for="divisorA">Chia hết cho</label><div class="rule-number"><input id="divisorA" type="number" min="2" max="6" step="1" value="3" aria-label="Số chia hết quy tắc một"></div>
+          <label for="wordA">Nói thay bằng</label><div class="rule-word"><input id="wordA" type="text" maxlength="28" value="Hội nhập" aria-label="Từ thay thế quy tắc một"></div>
+        </div>
+        <div class="rule-card">
+          <label for="divisorB">Chia hết cho</label><div class="rule-number"><input id="divisorB" type="number" min="2" max="6" step="1" value="4" aria-label="Số chia hết quy tắc hai"></div>
+          <label for="wordB">Nói thay bằng</label><div class="rule-word"><input id="wordB" type="text" maxlength="28" value="Kinh tế" aria-label="Từ thay thế quy tắc hai"></div>
+        </div>
+        <div class="rule-card">
+          <label for="divisorC">Chia hết cho</label><div class="rule-number"><input id="divisorC" type="number" min="4" max="36" step="1" readonly title="Tự động bằng tích hai số đầu" value="12" aria-label="Số chia hết quy tắc ba"></div>
+          <label for="wordBoth">Nói thay bằng</label><div class="rule-word"><input id="wordBoth" type="text" maxlength="28" value="Quốc tế" aria-label="Từ thay thế quy tắc ba"></div>
+        </div>
+      </div>
+      <div class="rule-warning" id="ruleWarning" role="alert"></div>
+      <div class="score-notice"><span class="score-item"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2" />
+  <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2" />
+  <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3" />
+  <path d="M4 22h16" />
+  <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" />
+  <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3" />
+</svg> Top 1: <b>3 điểm</b></span><span class="score-item"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15" />
+  <path d="M11 12 5.12 2.2" />
+  <path d="m13 12 5.88-9.8" />
+  <path d="M8 7h8" />
+  <circle cx="12" cy="17" r="5" />
+  <path d="M12 18v-2h-.5" />
+</svg> Top 2: <b>2 điểm</b></span><span class="score-item"><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" />
+  <circle cx="12" cy="8" r="6" />
+</svg> Top 3: <b>1 điểm</b></span></div>
+    </div>
+  </div>
+  <div class="ready"><p><svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+  <path d="M9 18h6" />
+  <path d="M10 22h4" />
+</svg> Bấm <b>Bắt đầu trò chơi</b> để đổi ngay số chia hết ở cột 1, cột 2 và cả ba từ khóa. Hai số đầu từ 2 đến 6; số cột 3 tự động bằng tích hai số đầu.</p><button class="btn primary lg" id="startButton">BẮT ĐẦU TRÒ CHƠI <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg></button></div>
+</section>
+</main>
+<footer><strong>Hội nhập kinh tế quốc tế – phát triển và tự chủ.</strong> Trò chơi mô phỏng phản xạ, minh họa thông điệp bài học. · Hoạt động ngoại tuyến, không thu thập dữ liệu.</footer>
+</div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const state={sound:false,rules:{a:3,b:4,c:12,wordA:"Hội nhập",wordB:"Kinh tế",wordBoth:"Quốc tế"}};
+function escapeText(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const DEFAULT_RULES={a:3,b:4,c:12,wordA:'Hội nhập',wordB:'Kinh tế',wordBoth:'Quốc tế'};
+// The third divisor is the product of the first two. Priority when rules overlap:
+// rule 3 (c), then rule 1 (a), then rule 2 (b).
+function answer(n){const r=state.rules;if(n%r.c===0)return r.wordBoth;if(n%r.a===0)return r.wordA;if(n%r.b===0)return r.wordB;return String(n)}
+function fillRuleInputs(){const r=state.rules;['divisorA','divisorB','divisorC','wordA','wordB','wordBoth'].forEach((id,i)=>{$(id).value=[r.a,r.b,r.c,r.wordA,r.wordB,r.wordBoth][i]});updateRules()}
+function updateRules(){
+  const fields=['divisorA','divisorB'].map(id=>$(id).value.trim());
+  const [a,b]=fields.map(Number);
+  const validNumbers=fields.every(t=>/^[2-6]$/.test(t));
+  const c=a*b;
+  $('divisorC').value=validNumbers?c:'';
+  const words=[$('wordA').value.trim(),$('wordB').value.trim(),$('wordBoth').value.trim()];
+  let error='';
+  if(!validNumbers)
+    error='Hai số đầu phải là số nguyên từ 2 đến 6.';
+  else if(new Set([a,b,c]).size!==3)error='Ba số chia hết phải khác nhau để tránh trùng quy tắc.';
+  else if(words.some(w=>!w))error='Cần điền đủ cả 3 từ khóa trước khi bắt đầu.';
+  else if(new Set(words.map(w=>w.toLocaleLowerCase('vi'))).size<3)error='Ba từ khóa nên khác nhau để người chơi không bị nhầm luật.';
+  $('ruleWarning').textContent=error;$('ruleWarning').classList.toggle('show',!!error);
+  $('startButton').disabled=!!error;
+  if(error)return false;
+  state.rules={a,b,c,wordA:words[0],wordB:words[1],wordBoth:words[2]};
+  const label=words.map(w=>w.toLocaleUpperCase('vi')).join(' · ');
+  $('brandTitle').textContent=label;document.title=words.join(' • ')+' — Mini Game';
+  savePrefs();return true
+}
+function beep(freq=600,dur=.08,wave='sine'){if(!state.sound)return;try{const A=window.AudioContext||window.webkitAudioContext; if(!A)return;state.audio??=new A(); const ctx=state.audio; if(ctx.state==='suspended')ctx.resume();const osc=ctx.createOscillator(),g=ctx.createGain();osc.type=wave;osc.frequency.value=freq;g.gain.setValueAtTime(.09,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+dur);osc.connect(g);g.connect(ctx.destination);osc.start();osc.stop(ctx.currentTime+dur)}catch(e){}}
+function renderSound(){const button=$('soundButton');button.innerHTML=state.sound?`<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
+  <path d="M16 9a5 5 0 0 1 0 6" />
+  <path d="M19.364 18.364a9 9 0 0 0 0-12.728" />
+</svg>`:`<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z" />
+  <path d="m16.5 14.5 5-5" />
+  <path d="m16.5 9.5 5 5" />
+</svg>`;button.title=state.sound?'Tắt âm thanh':'Bật âm thanh';button.setAttribute('aria-label',button.title);button.setAttribute('aria-pressed',String(state.sound))}
+function beepSuccess(){beep(800,.08);setTimeout(()=>beep(1050,.1),90)}
+function beepFailure(){beep(230,.2,'sawtooth')}
+function start(){
+  const pick=items=>items[Math.floor(Math.random()*items.length)];
+  const numbers=[2,3,4,5,6];
+  const a=pick(numbers.filter(n=>n!==Number($('divisorA').value)));
+  const b=pick(numbers.filter(n=>n!==a&&n!==Number($('divisorB').value)));
+  const keywords=['Hội nhập','Kinh tế','Quốc tế','Hợp tác','Phát triển','Tự chủ','Thương mại','Đầu tư','Xuất khẩu','Cạnh tranh','Đổi mới','Sáng tạo'];
+  const used=new Set();
+  ['wordA','wordB','wordBoth'].forEach(id=>{
+    const word=pick(keywords.filter(w=>!used.has(w)&&w!==$(id).value.trim()));
+    $(id).value=word;used.add(word);
+  });
+  $('divisorA').value=a;$('divisorB').value=b;
+  updateRules();beepSuccess();
+}
+function savePrefs(){try{localStorage.setItem('hoi_nhap_game_config',JSON.stringify({sound:state.sound,rules:state.rules}))}catch(e){}}
+function loadPrefs(){try{const config=JSON.parse(localStorage.getItem('hoi_nhap_game_config')||'null');if(!config)return;state.sound=!!config.sound;
+if(config.rules&&typeof config.rules==='object'){
+ const r=config.rules;
+ const a=Number(r.a),b=Number(r.b),c=a*b;
+ const w=[r.wordA,r.wordB,r.wordBoth];
+ if([a,b].every(n=>Number.isInteger(n)&&n>=2&&n<=6)&&new Set([a,b,c]).size===3&&w.every(t=>typeof t==='string'&&t.trim()&&t.length<=28)&&new Set(w.map(t=>t.trim().toLocaleLowerCase('vi'))).size===3){state.rules={a,b,c,wordA:w[0].trim(),wordB:w[1].trim(),wordBoth:w[2].trim()}}
+}
+}catch(e){}}
+
+['divisorA','divisorB','divisorC','wordA','wordB','wordBoth'].forEach(id=>$(id).addEventListener('input',updateRules));
+$('resetRulesButton')?.addEventListener('click',()=>{state.rules={...DEFAULT_RULES};fillRuleInputs()});
+$('startButton').addEventListener('click',start);
+$('soundButton').addEventListener('click',()=>{state.sound=!state.sound;renderSound();savePrefs();if(state.sound)beep(770,.1)});
+$('fullButton').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch(e){alert('Hãy nhấn F11 để mở toàn màn hình trên trình duyệt.')}});
+loadPrefs();fillRuleInputs();renderSound();
+})();
+</script>
+</body>
+</html>
